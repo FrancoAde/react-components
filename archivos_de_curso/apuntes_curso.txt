@@ -1,0 +1,14 @@
+1) Instalamos los prop-types
+2) Si quitamos el atributo required al formulario, los datos pueden entrar sin valor
+    Para eso estan las proptypes.
+
+3) CASO ESPECIAL : Renombramos src a las versiones de la carpeta para que React lo apuntes_labuena.txt
+    Estos para no crear mas apps, ponemos version para ordenar el curso.
+
+
+--------------------------------------------------------------
+
+1) Los números de ID son aleatorios al insertar los cursos.
+2) Agregamos el paquete uid -> npm install uid o yarn add uid
+3) Agregamos la carpeta data un archivo js y un objeto JSON para utilizarlo
+4) Agregamos el paquete Jquery -> npm install jquery o yarn add jquery

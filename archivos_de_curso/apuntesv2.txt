@@ -1,0 +1,89 @@
+COMPONENTES 2
+
+1) CICLO DE VIDA DE LOS COMPONENTES:
+
+    - Casi todos los componentes de React tienen un ciclo de vida.
+    - 3 tipos : montaje, actualizacion, desmontaje
+    - ofrece puntos de captura para ejecuta codigo en cada etapa
+
+    a) Fase de montaje: 
+
+        componentWillMount()
+            - Se ejecuta una vez tanto en cliente como en servidor inmendiatamente
+            antes del primer render().
+            - Si usas setState en este método, render() se ejecutará solo una vez a pesar de haber
+            disparado un cambio de estado.
+        
+        componentDidMount()
+            - Se ejecuta una vez solo en cliente, inmediatamente despues del primer render().
+            - Las referencias en el DOM ya existes y es el lugar ideal para hacer peticiones AJAX
+              integrar librerias externas, crear eventos, poner timers, etc.
+            - El componentDidMount() de los hijos será ejecutado antes que del padre.
+
+    b) Fase de actualizacion (No se ejecuta con el primer render)
+
+        componentWillReceiveProps(nextProps)
+            - Se ejecuta cuando el componente reciva nuevas propiedades.
+            - No se ejecuta en el primer render().
+            - Recibe como parámetro las nuevas propiedades, muy util para hacer
+              comparaciones y actualizar el estado segun las propiedades.
+        
+        componentWillUpdate(nextProps, nextState)
+            - Se ejectura antes de volver a renderizarse con las nuevas props y estado.
+            - No se ejecuta en el primer render()
+            - Esta funcion recibe como parametro las nuevas propuedades y el nuevo estado
+              y siempre debe devolver un valor booleano. Por defecto siempre devuelve true
+
+        componentDidUpdate(prevProps, prevState)
+            - Se ejecuta despues de renderizarse.
+            - No se ejecuta con el primer render().
+            - Recibe como parámetro las propiedades y el estado anterior
+            - Buen  lugar para trabajar con el DOM del componente, por que en este punto tenemos
+              todos los cambios representados con el nuevo render().
+
+        shouldComponentUpdate(nextProps, nextState)
+            - Se ejecuta justo antes de volver a renderizarse con las nuevas props y estado.
+            - No se ejecuta con el primer render().
+            - Esta funcion recibe como parámetro las nuevas propiedades y el nuevo estado y 
+              siempre debe devolver un valor booleano. Por defecto siempre devuelve true.
+
+    c) Fase de desmontaje
+
+        componentWillUnmount(prevProps, prevState)
+            - Se ejecuta antes que el componente se elimine del DOM
+            - Especialmente útil para limpiar eventos asignados a las referencias
+              del DOM del componente, eliminar timers y limpiar observadores.
+
+2) COMPONENTES DINÁMICOS (Hijos dinámicos)
+    
+    Componentes que renderizan componentes totalmente diferentes según el estado o
+    las propiedades asignadas.
+
+    Utilés:
+    - Un componentes para cuando no tenesmos resultados y otro para cuando si.
+    - Un componente para indicar que estamos cargando el contenido.
+    - Una listas de componentes
+
+3) Anidamiento de Vistas
+
+    - Gracias a que React es una libreria orientada a componentes es muy facil
+      crear estructuras anidadas como las que harias con HTML.
+
+    - La gran diferencia con este lenguaje es que en vez de anidar etiquetas, estamos anidando
+    componentes los cuales tienen  una funcionalidad ya definida.
+
+    - Javascript todo es un objeto, React todo es un componente
+
+    Ventajas:
+    - Codigo mas limpio.
+    - Reutilizar el máximo el código posible.
+    - Convertir estructuras complejas en más sencillas y reutilizables.
+
+4) Encapsulamiento de Librerias
+
+    Una de las grandes caracteristicas de React es que no tienes porque utilizar
+    libreria en toda tu App.
+
+    Utilizar librerias Javascript y conviértelos en componentes.
+
+

@@ -1,0 +1,164 @@
+3) la buena, programa y no configures, internamente trabaja con webpack
+    npm install -g create-react-app
+    npm start
+
+    -Se utilizar yarn(opcional) m�s rapido que npm
+        1) yarn global add package      //instalacion global
+        2) yarn add package             //instalaci�n dependencia de proyecto
+        3) yarn add package [--dev/-D]  //instalacion dependencias de desarrollo
+        4) yarn script                  //correr un script npm
+    -create-react-app solo te perdira que existan 2 archivos:
+        1) public/index.html el documento HTML donde cargar� el app de React
+        2) src/index.js el punto de  entrada de la app React
+
+    - yarn start -> corre la aplicacion
+
+
+4)  
+    A)  COMPONENTES : Pieza de codigo que se dedica a realizar una tarea en particular.
+
+    B)  ESCRITURA : Javascript o JSX.
+
+            a)JSX: siempre se cierra la etiqueta con </>
+            b)Los nombres de los componentes se escriben con UpperCamelCase
+            c)Si queremos insertar codigo JS en JSX se puede dentro de las {}
+            d)React.createElement(etiqueta, atributos{}, texto o hijos)
+            e)Los atributos en JSX se escribe en camelCase ejemplo: className(es una clase)
+
+            //MANILA JAVASCRIPT 
+
+            let image = React.createElement(
+                'img',{src: './img/logo-react.svg', className: 'Logo-image'},null
+            ),
+            title = React.createElement(
+                'figcaption',{className:'Logo-title'},'React'
+            ),
+            logo = React.createElement(
+                'figure',{className: 'Logo'},{image.title}
+            );
+
+            ReactDOM.render(logo, document.getElementById('app'));
+
+            Te bota:
+
+            <figure class='Logo'>
+                <img src="./img/logo-react.svg" class="Logo-image">
+                <figcaption class="Logo-title">React</figcaption>
+            </figure>
+
+            //JSX
+
+            class Logo extends React.component(
+                render(){
+                    return(){
+                        <figure className='Logo'>
+                            <img src="./img/logo-react.svg" className="Logo-image">
+                            <figcaption className="Logo-title">React</figcaption>
+                        </figure>
+                    }
+                }
+            )
+
+            ReactDOM.render(<Logo/>,document.getElementById('app'))
+
+
+    C)  PARTES: 
+
+        - Renderizacion render(): m�todo que se encargar de visualizar el c�digo HTML de los 
+                                componentes en el navegador.
+
+        - Propiedades props: Mecanismo principal para pasar datos de un componente superior(padre)
+                            a uno inferior (hijo).
+
+                            - Son informaci�n externa utilizada, no se puede cambiar las propiedades,
+                            estas fijas durante el ciclo de vida del mismo
+                            - Son inmutables: Los componentes no pueden cambiar sus propiedades, estas quedan fijas
+                            durante todo el ciclo de vida del mismos-
+                            - Buena práctica, definir expl�citamente las propiedades que aceptar un componente, cuales
+                            son requeridas y los tipos de dato de cada una.
+
+                            
+                            propTypes -> definir expl�citamente las propiedas
+                                
+                                //PRIMITIVOS
+                                PropTypes.array(arreglo)
+                                PropTypes.bool(boolean)
+                                PropTypes.func(funcion)
+                                PropTypes.number(number)
+                                PropTypes.object(object)
+                                PropTypes.string(cadena)
+
+                                //COMBINADOS
+                                PropTypes.oneOfType(puede tener varios tipos)
+                                PropTypes.arrayOf(un arreglo de cierto tipo)
+                                PropTypes.objectoOf(objeto con propiedades de cierto tipo)
+                                PropTypes.shape(un objeto con propiedades especificas)
+
+                                //ESPECIALES Validadores de PropTypes
+                                PropTypes.node(cualquier tipo que pueda mostrar su valor[number,string,boolean,elemento de arreglo])
+                                PropTypes.element(un elemento de React)
+                                PropTypes.instanceOf(una instancia de una clase)
+                                PropTypes.oneOf(esta limitado a un n�mero espec�fico de valores)
+
+                            defaultProps -> Asignar el valor a una propiedad
+
+        - ESTADO STATE: Los componentes pueden tener un estado.
+
+                        - Mutable, cambia el estado, el componente se renderiza.
+                        
+                        - no se hereda, solo el componente tiene la capacidad de cambiar su estado
+
+                        - Metodo -> setState()
+
+                        - Metodo -> setState((prevState, props) =>{}) 
+
+                        - Es muy util contener datos en el componente, o para enviar informacion alos hijois
+                            en forma de propiedad
+
+
+        - EVENTOS SINTHETICS : Sirven para modificar el estado del componente, Mientras que las propiedades 
+                                se pasan de padres a hijos los eventos de hijos a padres.
+                                - Un evento que dispare un hijo, puede capturarlo el padre.
+                                - Si queremos acceder a los eventos nativos, utilizamos el atributo nativeEvent
+                                - camelCase y se pasan como funcion en vez de cadena.
+    
+    D)  TIPOS:
+
+            - COMPONENTES DE PRESENTACION: Stateless, se limitan a mostrar datos y no tienen estado, faciles de manejas
+                                            - Orientados a aspecto visual.
+                                            - Reciben callback por medio de props
+                                            - Pueden ser escritos como componentes funcionales.
+                                            - No tienen dependencia con fuentes de datos.
+                                            - No tienen estado.
+
+            - COMPONENTES DE CONTENEDORES: Stateful, encapsula a otros componentes y proporcionan propiedades,
+                                        adem�s se encargan de manejar el estado de la aplicacion.
+                                            - Orientados al funcionamiento de la aplicacion.
+                                            - Se comunica con las fuentes de datos.
+                                            - Contiene componentes de presentacion y contenedores.
+                                            - Tiene estado
+
+    E)  SINTAXIS: 
+
+        ES6: 
+        
+        //Component con estado: Stateful
+
+            class MyComponentStateful extends React.Component{
+                constructor (...props){
+                    super(...props)
+                    this.state={...}
+                }
+
+                render(){
+
+                }
+            }
+
+            MyComponentStateful.propTypes = {...}
+            MyComponentStateful.defaultProps={...}
+        
+        //Componente sin estado: Stateless
+            const MyComponentStateless = (...props) =>{..}
+
+
